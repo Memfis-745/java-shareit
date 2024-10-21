@@ -10,11 +10,13 @@ import java.time.LocalDate;
 @Data
 public class Booking {
 
-    private Long bookingId;
+  /*  private Long bookingId;
     private LocalDate startBooking;
     private LocalDate finishBooking;
     private Long itemId;
     private Long bookerId;
     private BookingStatus bookingStatus;
+
+   */
 
 }
