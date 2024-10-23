@@ -5,6 +5,7 @@ import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.user.model.User;
 
+
 public class ItemMapper {
     public static ItemDto ItemToDto(Item item) {
         return new ItemDto(
@@ -27,3 +28,5 @@ public class ItemMapper {
         );
     }
 }
+
+

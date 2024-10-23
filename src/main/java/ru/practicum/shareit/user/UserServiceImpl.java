@@ -14,19 +14,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 class UserServiceImpl implements UserService {
     private final UserRepository repository;
+    private final UserMapper userMapper;
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        User user = UserMapper.dtoToUser(userDto);
+        User user = userMapper.dtoToUser(userDto);
         User userSaved = repository.addUser(user);
-        return UserMapper.userToDto(userSaved);
+        return userMapper.userToDto(userSaved);
     }
 
     @Override
     public UserDto updateUser(UserDto userDto, long userId) {
 
-        User userFromDto = UserMapper.dtoToUser(userDto);
-        return UserMapper.userToDto(repository.updateUser(userFromDto, userId));
+        User userFromDto = userMapper.dtoToUser(userDto);
+        return userMapper.userToDto(repository.updateUser(userFromDto, userId));
     }
 
 
@@ -34,7 +35,7 @@ class UserServiceImpl implements UserService {
     public UserDto getUserById(long userId) {
         User user = repository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь с ID " + userId + " не найден"));
-        return UserMapper.userToDto(user);
+        return userMapper.userToDto(user);
     }
 
     @Override
@@ -48,7 +49,7 @@ class UserServiceImpl implements UserService {
     public List<UserDto> getAllUsers() {
         Collection<User> usersList = repository.getAll();
         return usersList.stream()
-                .map(UserMapper::userToDto)
+                .map(userMapper::userToDto)
                 .collect(Collectors.toList());
     }
 }

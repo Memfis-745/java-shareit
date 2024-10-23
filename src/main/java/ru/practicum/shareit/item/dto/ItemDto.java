@@ -24,5 +24,6 @@ public class ItemDto {
     @BooleanFlag
     @NotNull(message = "Поле не может быть пустым")
     private Boolean available;
-    private Long requestId;
+    private Long request;
+
 }

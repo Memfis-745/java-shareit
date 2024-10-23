@@ -17,7 +17,7 @@ import java.util.Optional;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    Map<Long, User> users = new HashMap<>();
+    private Map<Long, User> users = new HashMap<>();
     private static long userId = 1;
 
     @Override

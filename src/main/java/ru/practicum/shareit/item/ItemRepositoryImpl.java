@@ -44,7 +44,6 @@ public class ItemRepositoryImpl implements ItemRepository {
     @Override
     public List<Item> findByText(String text) {
         List<Item> itemsSearch = new ArrayList<>();
-        // List<Item> itemList = items.values().stream().collect(Collectors.toList());;
         for (Item item : items.values()) {
             if ((StringUtils.containsIgnoreCase(item.getName(), text) ||
                     StringUtils.containsIgnoreCase(item.getDescription(), text))

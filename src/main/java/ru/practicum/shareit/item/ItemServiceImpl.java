@@ -48,6 +48,8 @@ public class ItemServiceImpl implements ItemService {
         }
 
         Item itemNew = ItemMapper.DtoToItem(itemDto, user, request);
+        itemNew.setOwner(user);
+        itemNew.setRequest(request);
         Item item = itemRepository.update(itemId, itemNew);
         log.info("Отправляем созданный itemDto {}", ItemMapper.ItemToDto(item));
         return ItemMapper.ItemToDto(item);
