@@ -11,7 +11,7 @@ import ru.practicum.shareit.booking.BookingRepository;
 import ru.practicum.shareit.booking.BookingStatus;
 import ru.practicum.shareit.booking.dto.BookingDtoItem;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.exception.ObjectNotFoundException;
+import ru.practicum.shareit.exception.EntityNotFoundException;
 import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemDtoBooking;
@@ -156,7 +156,7 @@ public class ItemServiceImpl implements ItemService {
         Boolean checkValidate = bookingRepository.checkValidateBookingsFromItemAndStatus(itemId, userId,
                 BookingStatus.APPROVED, LocalDateTime.now());
         if (!checkValidate) {
-            throw new ObjectNotFoundException("Пользователь " + userId + " не арендовывал вещь " + itemId +
+            throw new EntityNotFoundException("Пользователь " + userId + " не арендовывал вещь " + itemId +
                     " и не может писать отзыв");
         }
         Comment comment = CommentMapper.DtoToComment(commentDto, item, user);

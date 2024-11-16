@@ -45,7 +45,6 @@ public class BookingController {
         log.info("Бронирование - Get запрос на получение данных о бронировании: userId {}, bookingId {}", userId, bookingId);
         return service.getBookingId(bookingId, userId);
     }
-// 44 4
 
     @GetMapping
     public List<BookingDtoOut> getAllBookingByUser(@RequestHeader(header) long userId,

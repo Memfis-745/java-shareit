@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.BookingDtoIn;
 import ru.practicum.shareit.booking.dto.BookingDtoOut;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.exception.ObjectNotFoundException;
+import ru.practicum.shareit.exception.EntityNotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
@@ -38,7 +38,7 @@ public class BookingServiceImpl implements BookingService {
                         + " не найдена"));
         validateBooking(bookingDtoIn, item, user);
         if (!item.getAvailable()) {
-            throw new ObjectNotFoundException("У выбранной вещи статус: недоступна");
+            throw new EntityNotFoundException("У выбранной вещи статус: недоступна");
         }
         if (user.getId().equals(item.getOwner().getId())) {
             throw new NotFoundException("Запрос аренды отправлен владельцем");
@@ -155,14 +155,14 @@ public class BookingServiceImpl implements BookingService {
     public User checkUser(Long userId) {
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ObjectNotFoundException("Пользователь с ID " + userId + " не найден"));
+                .orElseThrow(() -> new EntityNotFoundException("Пользователь с ID " + userId + " не найден"));
         log.info("Проверили пользователя  и полвозвращаем его - из метода.");
         return user;
     }
 
     public Booking checkBooking(Long bookingId) {
         Booking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new ObjectNotFoundException("Запроса на аренду с ID " + bookingId
+                .orElseThrow(() -> new EntityNotFoundException("Запроса на аренду с ID " + bookingId
                         + " не зарегистрировано"));
         return booking;
     }
@@ -171,7 +171,7 @@ public class BookingServiceImpl implements BookingService {
 
         List<Booking> bookings = bookingRepository.checkValidateBookings(item.getItemId(), bookingDtoRequest.getStart());
         if (bookings != null && !bookings.isEmpty()) {
-            throw new ObjectNotFoundException("Вещь уже забронирована" + item.getName());
+            throw new EntityNotFoundException("Вещь уже забронирована" + item.getName());
         }
     }
 }
