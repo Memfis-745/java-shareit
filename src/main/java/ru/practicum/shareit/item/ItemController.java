@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemDtoBooking;
 
 import java.util.List;
 
@@ -41,13 +43,13 @@ public class ItemController {
     }
 
     @GetMapping("/{itemId}")
-    public ItemDto getItemById(@RequestHeader(headers) long userId, @PathVariable long itemId) {
+    public ItemDtoBooking getItemById(@RequestHeader(headers) long userId, @PathVariable("itemId") long itemId) {
         log.info("Запрашивается информация о вещи getItemById: userId {}, itemId {}", userId, itemId);
         return itemService.getItemById(userId, itemId);
     }
 
     @GetMapping
-    public List<ItemDto> getUserItems(@RequestHeader(headers) long userId) {
+    public List<ItemDtoBooking> getUserItems(@RequestHeader(headers) long userId) {
         log.info("Собственник запрашивает информацию о вещах getUserItems: userId {}", userId);
         return itemService.getUserItems(userId);
     }
@@ -58,4 +60,12 @@ public class ItemController {
         return itemService.search(text);
     }
 
+    @PostMapping("/{itemId}/comment")
+    public CommentDto saveComment(@RequestHeader(headers) long userId,
+                                  @PathVariable long itemId,
+                                  @RequestBody CommentDto comment) {
+        log.info("В метод saveComment передан userId {}, itemId {}, отзыв с длиной текста: {}",
+                userId, itemId, comment.getText().length());
+        return itemService.saveComment(userId, itemId, comment);
+    }
 }

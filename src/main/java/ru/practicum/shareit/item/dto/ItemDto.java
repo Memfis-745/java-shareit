@@ -3,10 +3,8 @@ package ru.practicum.shareit.item.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jdk.jfr.BooleanFlag;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 /**
  * TODO Sprint add-controllers.
@@ -15,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemDto {
     private Long id;
     @NotBlank(message = "Поле не может быть пустым")
