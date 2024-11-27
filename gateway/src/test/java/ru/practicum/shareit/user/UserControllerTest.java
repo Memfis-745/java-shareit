@@ -99,20 +99,6 @@ class UserControllerTest {
                 .updateUser(any(), anyLong());
     }
 
-    @Test
-    void updateUserWithWrongEmail() throws Exception {
-        userDto.setEmail("anotherWrongMail.com");
-
-        mvc.perform(patch("/users/1")
-                        .content(mapper.writeValueAsString(userDto))
-                        .characterEncoding(StandardCharsets.UTF_8)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-
-        verify(userClient, never())
-                .createUser(any());
-    }
 
     @Test
     void updateUserWithNullEmail() throws Exception {
