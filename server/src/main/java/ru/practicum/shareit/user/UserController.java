@@ -26,6 +26,7 @@ public class UserController {
         return userService.createUser(userDto);
     }
 
+
     @PatchMapping("/{userId}")
     public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable long userId) {
         log.info("Редактирование пользователя: userId {}, name {}, email {}",

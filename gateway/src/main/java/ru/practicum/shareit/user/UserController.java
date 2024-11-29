@@ -26,6 +26,7 @@ public class UserController {
         log.info("Запрос на создание пользователя: name {}, email {}", userDto.getName(), userDto.getEmail());
         return userClient.createUser(userDto);
     }
+
     @Validated
     @PatchMapping("/{userId}")
     public ResponseEntity<Object> updateUser(@RequestBody UserDto userDto, @PathVariable long userId) {

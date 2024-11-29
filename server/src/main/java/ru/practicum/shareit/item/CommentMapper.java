@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommentMapper {
 
-    public static Comment DtoToComment(CommentDto comment, Item item, User user) {
+    public static Comment dtoToComment(CommentDto comment, Item item, User user) {
         return new Comment(
                 comment.getId(),
                 comment.getText(),
@@ -24,20 +24,20 @@ public class CommentMapper {
         );
     }
 
-    public static CommentDto CommentToDto(Comment comment) {
+    public static CommentDto commentToDto(Comment comment) {
 
         return new CommentDto(
                 comment.getId(),
                 comment.getText(),
-                ItemMapper.ItemToDto(comment.getItem()),
+                ItemMapper.itemToDto(comment.getItem()),
                 comment.getAuthor().getName(),
                 comment.getCreated()
         );
     }
 
-    public static List<CommentDto> CommentToDtoList(List<Comment> commentList) {
+    public static List<CommentDto> commentToDtoList(List<Comment> commentList) {
         return commentList.stream()
-                .map(CommentMapper::CommentToDto)
+                .map(CommentMapper::commentToDto)
                 .collect(Collectors.toList());
     }
 

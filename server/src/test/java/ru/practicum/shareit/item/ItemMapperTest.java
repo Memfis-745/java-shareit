@@ -46,7 +46,7 @@ class ItemMapperTest {
     void toItemDto() {
 
 
-        ItemDto itemDto = ItemMapper.ItemToDto(item);
+        ItemDto itemDto = ItemMapper.itemToDto(item);
 
         assertEquals(item.getItemId(), itemDto.getId());
         assertEquals(item.getName(), itemDto.getName());
@@ -57,7 +57,7 @@ class ItemMapperTest {
 
     @Test
     void testToItemDto() {
-        ItemDtoBooking itemFromMapper = ItemMapper.ItemToDtoBooking(item, bookingLastDto, bookingNextDto, List.of(comment));
+        ItemDtoBooking itemFromMapper = ItemMapper.itemToDtoBooking(item, bookingLastDto, bookingNextDto, List.of(comment));
 
         assertEquals(item.getItemId(), itemFromMapper.getId());
         assertEquals(item.getName(), itemFromMapper.getName());
@@ -78,7 +78,7 @@ class ItemMapperTest {
 
     @Test
     void toItem() {
-        Item mapperItem = ItemMapper.DtoToItem(itemDto, user, itemRequest);
+        Item mapperItem = ItemMapper.dtoToItem(itemDto, user, itemRequest);
 
         assertEquals(itemDto.getId(), mapperItem.getItemId());
         assertEquals(itemDto.getName(), mapperItem.getName());
@@ -95,7 +95,7 @@ class ItemMapperTest {
 
     @Test
     void testToItem() {
-        Item mapperItem = ItemMapper.DtoToItem(itemDto, item, itemRequest);
+        Item mapperItem = ItemMapper.dtoToItem(itemDto, item, itemRequest);
 
         assertEquals(itemDto.getId(), mapperItem.getItemId());
         assertEquals(itemDto.getName(), mapperItem.getName());

@@ -16,7 +16,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             select it
             from Item as it
             where it.available = true and (it.name
-            ilike concat('%', :text, '%') or it.description 
+            ilike concat('%', :text, '%') or it.description
             ilike concat('%', :text, '%'))
             """)
     List<Item> findByNameOrDescription(@Param("text") String text);
@@ -24,7 +24,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByRequest_IdInOrderByItemId(List<Long> itemRequestId);
 
     @Query("""
-            select i from Item i 
+            select i from Item i
             where i.request.id = id
             """)
     List<Item> findAllByRequestId(@Param("id") Long id);
