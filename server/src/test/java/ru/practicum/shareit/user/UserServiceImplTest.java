@@ -1,4 +1,5 @@
 package ru.practicum.shareit.user;
+
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import ru.practicum.shareit.user.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.NoResultException;
+
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;

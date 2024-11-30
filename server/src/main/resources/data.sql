@@ -1,4 +1,8 @@
 delete from users;
+DELETE FROM items;
+DELETE FROM bookings;
+DELETE FROM comments;
+DELETE FROM requests;
 alter table users alter column id restart with 1;
 alter table items alter column id restart with 1;
 alter table bookings alter column id restart with 1;

@@ -6,29 +6,23 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ru.practicum.shareit.booking.BookingStatus;
+//import ru.practicum.shareit.service.StartBeforeEnd;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//@StartBeforeEnd
 public class BookingRequestDto {
-
 
     private Long id = 0L;
 
-    @NotNull(message = "Нужно указать дату возврата вещи")
+    @NotNull(message = "Нужно указать дату заказа вещи")
     @FutureOrPresent(message = "Нельзя указывать прошедшую дату")
     private LocalDateTime start;
 
@@ -36,7 +30,7 @@ public class BookingRequestDto {
     @Future(message = "Нельзя указывать прошедшую дату")
     private LocalDateTime end;
 
-    @NotNull(message = "Нужно указать, какую вещь хотите арендовать")
+    @NotNull(message = "Укажите вещь для аренды")
     private Long itemId;
 
     private BookingStatus status = BookingStatus.WAITING;
