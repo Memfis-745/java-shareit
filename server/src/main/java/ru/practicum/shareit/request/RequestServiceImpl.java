@@ -84,7 +84,7 @@ public class RequestServiceImpl implements RequestService {
         for (ItemRequest request : requests) {
             List<ItemDto> requestItems = new ArrayList<>();
             for (Item item : items) {
-                if (item.getRequest().getId() == request.getId()) {
+                if (item.getRequest().getId().equals(request.getId())) {
                     requestItems.add(ItemMapper.itemToDto(item));
                 }
             }
