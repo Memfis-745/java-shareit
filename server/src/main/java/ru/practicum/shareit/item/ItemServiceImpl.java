@@ -73,7 +73,7 @@ public class ItemServiceImpl implements ItemService {
         Item itemOld = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException("Вещь с ID " + itemId + " не найдена"));
         if (itemOld.getOwner().getId() != userId) {
-            throw new NotFoundException("Пользователь " + user + " не является владельцем вещи c ID "
+            throw new NotFoundException("Пользователь с ID " + userId + " не является владельцем вещи c ID "
                     + itemId);
         }
         Item item = ItemMapper.dtoToItem(itemDto, itemOld, request);
@@ -102,7 +102,7 @@ public class ItemServiceImpl implements ItemService {
         return getCommentAndBooking(List.of(item), userId).get(0);
     }
 
-    private List<ItemDtoBooking> getCommentAndBooking(List<Item> items, Long userId) {
+    List<ItemDtoBooking> getCommentAndBooking(List<Item> items, Long userId) {
 
         Map<Item, List<Comment>> comments = commentRepository.findByItemIn(
                         items, Sort.by(DESC, "created"))
@@ -118,11 +118,11 @@ public class ItemServiceImpl implements ItemService {
                 .collect(toList());
     }
 
-    private ItemDtoBooking addBookingAndComment(Item item,
-                                                Long userId,
-                                                List<Comment> comments,
-                                                List<Booking> bookings,
-                                                LocalDateTime now) {
+    ItemDtoBooking addBookingAndComment(Item item,
+                                        Long userId,
+                                        List<Comment> comments,
+                                        List<Booking> bookings,
+                                        LocalDateTime now) {
         if (item.getOwner().getId().longValue() != userId.longValue()) {
             return ItemMapper.itemToDtoBooking(item, null, null,
                     CommentMapper.commentToDtoList(comments));
@@ -188,6 +188,7 @@ public class ItemServiceImpl implements ItemService {
                 new NotFoundException("Вещь с id " +
                         itemId + " не найдена"));
     }
+
 
 }
 

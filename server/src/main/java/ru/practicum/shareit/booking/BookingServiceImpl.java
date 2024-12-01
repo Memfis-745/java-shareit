@@ -175,11 +175,15 @@ public class BookingServiceImpl implements BookingService {
         return booking;
     }
 
-    private void validateBooking(BookingDtoIn bookingDtoRequest, Item item, User booker) {
+    public void validateBooking(BookingDtoIn bookingDtoRequest, Item item, User booker) {
 
         List<Booking> bookings = bookingRepository.checkValidateBookings(item.getItemId(), bookingDtoRequest.getStart());
         if (bookings != null && !bookings.isEmpty()) {
             throw new EntityNotFoundException("Вещь уже забронирована" + item.getName());
+        }
+
+        if (item.getOwner().equals(booker)) {
+            throw new NotFoundException("Нельзя забронировать свою вещь.");
         }
     }
 }
