@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 
 import lombok.*;
 import ru.practicum.shareit.booking.BookingStatus;
-//import ru.practicum.shareit.service.StartBeforeEnd;
+
 
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@StartBeforeEnd
+
 public class BookingRequestDto {
 
     private Long id = 0L;

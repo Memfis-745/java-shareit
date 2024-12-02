@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.service.Create;
 import ru.practicum.shareit.user.dto.UserDto;
 
-
-/**
- * TODO Sprint add-controllers.
- */
 @Slf4j
 @Validated
 @RestController
