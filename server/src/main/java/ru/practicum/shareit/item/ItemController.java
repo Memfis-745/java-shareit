@@ -10,9 +10,6 @@ import ru.practicum.shareit.item.dto.ItemDtoBooking;
 
 import java.util.List;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Validated
 @Slf4j
 @RestController

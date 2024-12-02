@@ -15,9 +15,6 @@ import ru.practicum.shareit.service.Create;
 import java.util.Collections;
 
 
-/**
- * TODO Sprint add-controllers.
- */
 @Validated
 @Slf4j
 @RestController
