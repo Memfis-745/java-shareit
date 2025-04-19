@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.service.Create;
 import ru.practicum.shareit.user.dto.UserDto;
 
-
-/**
- * TODO Sprint add-controllers.
- */
 @Slf4j
 @Validated
 @RestController
@@ -26,6 +22,7 @@ public class UserController {
         log.info("Запрос на создание пользователя: name {}, email {}", userDto.getName(), userDto.getEmail());
         return userClient.createUser(userDto);
     }
+
     @Validated
     @PatchMapping("/{userId}")
     public ResponseEntity<Object> updateUser(@RequestBody UserDto userDto, @PathVariable long userId) {

@@ -12,9 +12,7 @@ import ru.practicum.shareit.exceptions.WrongParameterException;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
-/**
- * TODO Sprint add-bookings.
- */
+
 @Slf4j
 @RestController
 @RequestMapping(path = "/bookings")

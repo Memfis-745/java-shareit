@@ -12,7 +12,7 @@ import java.util.List;
 
 
 public class ItemMapper {
-    public static ItemDto ItemToDto(Item item) {
+    public static ItemDto itemToDto(Item item) {
         return new ItemDto(
                 item.getItemId(),
                 item.getName(),
@@ -22,7 +22,7 @@ public class ItemMapper {
         );
     }
 
-    public static Item DtoToItem(ItemDto itemDto, User owner, ItemRequest request) {
+    public static Item dtoToItem(ItemDto itemDto, User owner, ItemRequest request) {
         return new Item(
                 itemDto.getId(),
                 itemDto.getName() != null ? itemDto.getName() : null,
@@ -33,7 +33,7 @@ public class ItemMapper {
         );
     }
 
-    public static Item DtoToItem(ItemDto itemDto, Item itemRep, ItemRequest request) {
+    public static Item dtoToItem(ItemDto itemDto, Item itemRep, ItemRequest request) {
         return new Item(
                 itemDto.getId(),
                 itemDto.getName() != null ? itemDto.getName() : itemRep.getName(),
@@ -44,7 +44,7 @@ public class ItemMapper {
         );
     }
 
-    public static ItemDtoBooking ItemToDtoBooking(Item item,
+    public static ItemDtoBooking itemToDtoBooking(Item item,
                                                   BookingDtoItem lastBooking,
                                                   BookingDtoItem nextBooking,
                                                   List<CommentDto> comments) {

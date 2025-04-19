@@ -11,7 +11,9 @@ import ru.practicum.shareit.exception.EntityNotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.user.UserDto;
 import ru.practicum.shareit.user.UserRepository;
+import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
@@ -30,30 +32,39 @@ class BookingServiceImplTest {
     private BookingRepository bookingRepository;
     private ItemRepository itemRepository;
     private UserRepository userRepository;
+    private UserService userService;
 
     private Item item;
     private User user;
     private User user2;
+    private UserDto userDto;
+    private UserDto userDtoRep;
     private Booking booking;
     private BookingDtoIn bookingDtoIn;
+    private BookingDtoIn bookingDtoIn2;
 
 
     @BeforeEach
     void beforeEach() {
         user = new User(1L, "Иван Иванович", "ii@mail.ru");
         user2 = new User(2L, "Петр Петрович", "pp@mail.ru");
+        userDto = new UserDto(null, "userDto", "Dto@mail.ru");
         item = new Item(1L, "Вещь 1", "Описание вещи 1", true, user, null);
         booking = new Booking(1L, LocalDateTime.now().plusHours(1), LocalDateTime.now().plusDays(1), item,
                 user2, BookingStatus.APPROVED);
         bookingDtoIn = new BookingDtoIn(1L, LocalDateTime.now().plusHours(1), LocalDateTime.now().plusDays(1),
+                item.getItemId(), BookingStatus.APPROVED);
+        bookingDtoIn2 = new BookingDtoIn(2L, LocalDateTime.now().plusHours(3), LocalDateTime.now().plusDays(2),
                 item.getItemId(), BookingStatus.APPROVED);
 
         //  validationService = mock(ValidationService.class);
         itemRepository = mock(ItemRepository.class);
         bookingRepository = mock(BookingRepository.class);
         userRepository = mock(UserRepository.class);
+        userService = mock(UserService.class);
 
         bookingService = new BookingServiceImpl(bookingRepository, itemRepository, userRepository);
+        // userDtoRep = userService.createUser(userDto);
     }
 
     @Test

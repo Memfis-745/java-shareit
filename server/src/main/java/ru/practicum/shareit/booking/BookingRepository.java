@@ -19,21 +19,22 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b  
+                    select b from Booking b
                     where b.item.itemId = :itemId
                     """)
     List<Booking> findAllBookingsByItem(
             @Param("itemId") Long itemId);
 
-    @Query(value = """
-            select new java.lang.Boolean(COUNT(b) > 0) 
-            from Booking b 
-            where (b.item.itemId = :itemId 
-            and b.bookingStatus = :status 
-            and b.finishBooking = :end 
-            or b.finishBooking < :end) 
-            and b.booker.id = :userId
-            """)
+    @Query
+            (value = """
+                    select new java.lang.Boolean(COUNT(b) > 0)
+                    from Booking b
+                    where (b.item.itemId = :itemId
+                    and b.bookingStatus = :status
+                    and b.finishBooking = :end
+                    or b.finishBooking < :end)
+                    and b.booker.id = :userId
+                    """)
     Boolean checkValidateBookingsFromItemAndStatus(
             @Param("itemId") Long itemId,
             @Param("userId") Long userId,
@@ -42,7 +43,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.item.itemId = :itemId
                     and :bookingDtoStartBookingIsBeforeOrAfter between b.startBooking and b.finishBooking
                     """)
@@ -53,8 +54,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
-                    where b.booker.id = :userId 
+                    select b from Booking b
+                    where b.booker.id = :userId
                     order by b.startBooking DESC
                     """)
     Page<Booking> findAllBookingsByBooker(
@@ -64,9 +65,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.booker.id = :userId
-                    and :now between b.startBooking and b.finishBooking 
+                    and :now between b.startBooking and b.finishBooking
                     order by b.startBooking DESC
                     """)
     Page<Booking> findAllCurrentBookingsByBooker(
@@ -76,9 +77,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.booker.id = :userId
-                    and :now > b.finishBooking 
+                    and :now > b.finishBooking
                     and b.bookingStatus = :status
                     order by b.startBooking DESC""")
     Page<Booking> findAllPastBookingsByBooker(
@@ -90,7 +91,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.booker.id = :userId
                     and b.startBooking > :now
                     order by b.startBooking DESC""")
@@ -101,7 +102,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.booker.id = :userId
                     and b.bookingStatus = :status
                     order by b.startBooking DESC
@@ -113,7 +114,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.booker.id = :userId
                     and b.bookingStatus = :status
                     or b.bookingStatus = :st
@@ -127,7 +128,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.item.owner.id = :userId
                     order by b.startBooking DESC
                     """)
@@ -137,9 +138,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.item.owner.id = :userId
-                    and :now between b.startBooking and b.finishBooking 
+                    and :now between b.startBooking and b.finishBooking
                     order by b.startBooking DESC
                     """)
     Page<Booking> findAllCurrentBookingsByOwner(
@@ -149,9 +150,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.item.owner.id = :userId
-                    and :now > b.finishBooking 
+                    and :now > b.finishBooking
                     and b.bookingStatus = :status
                     order by b.startBooking DESC
                     """)
@@ -163,7 +164,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.item.owner.id = :userId
                     and b.startBooking > :now
                     order by b.startBooking DESC
@@ -175,7 +176,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.item.owner.id = :userId
                     and b.bookingStatus = :status
                     order by b.startBooking DESC
@@ -187,7 +188,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query
             ("""
-                    select b from Booking b 
+                    select b from Booking b
                     where b.item.owner.id = :userId
                     and b.bookingStatus = :status
                     or b.bookingStatus = :st

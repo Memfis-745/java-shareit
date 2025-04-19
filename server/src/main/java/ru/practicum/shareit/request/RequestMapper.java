@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RequestMapper {
-    public static ItemRequest DtoToItemRequest(ItemRequestDto itemRequestDto, User userRequestor) {
+    public static ItemRequest itoToItemRequest(ItemRequestDto itemRequestDto, User userRequestor) {
 
         ItemRequest itemRequest = ItemRequest.builder()
                 .id(itemRequestDto.getId())
@@ -28,13 +28,13 @@ public class RequestMapper {
 
     }
 
-    public static ItemRequestDto ItemRequestToDto(ItemRequest request) {
+    public static ItemRequestDto itemRequestToDto(ItemRequest request) {
         ItemRequestDto itemRequestDto = ItemRequestDto.builder()
                 .id(request.getId())
                 .description(request.getDescription())
                 .created(request.getCreated())
                 .items(request.getItems().stream()
-                        .map(ItemMapper::ItemToDto)
+                        .map(ItemMapper::itemToDto)
                         .collect(Collectors.toList()))
                 .build();
         log.info(" реквест id{}", itemRequestDto.getId());
@@ -45,7 +45,7 @@ public class RequestMapper {
 
     }
 
-    public static ItemRequestDto ItemRequestToDto(ItemRequest request, List<ItemDto> itemsDto) {
+    public static ItemRequestDto itemRequestToDto(ItemRequest request, List<ItemDto> itemsDto) {
         return new ItemRequestDto(
                 request.getId(),
                 request.getDescription(),

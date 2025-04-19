@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Slf4j
 @Validated
 @RestController
@@ -25,6 +22,7 @@ public class UserController {
         log.info("Запрос на создание пользователя: name {}, email {}", userDto.getName(), userDto.getEmail());
         return userService.createUser(userDto);
     }
+
 
     @PatchMapping("/{userId}")
     public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable long userId) {

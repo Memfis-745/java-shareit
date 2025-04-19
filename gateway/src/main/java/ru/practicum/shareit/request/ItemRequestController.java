@@ -9,9 +9,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.request.dto.RequestDto;
 
-/**
- * TODO Sprint add-item-requests.
- */
 @Slf4j
 @RestController
 @RequestMapping(path = "/requests")

@@ -3,9 +3,7 @@ package ru.practicum.shareit.item.dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-/**
- * TODO Sprint add-controllers.
- */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

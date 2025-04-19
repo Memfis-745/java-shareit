@@ -12,6 +12,19 @@
 	<groupId>ru.practicum</groupId>
 	<artifactId>shareit</artifactId>
 	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>ShareIt</name>
+
+	<properties>
+		<java.version>21</java.version>
+	</properties>
+
+	<modules>
+		<module>gateway</module>
+		<module>server</module>
+	</modules>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -29,23 +42,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-		</dependency>
 	</dependencies>
-	<version>0.0.1-SNAPSHOT</version>
-
-	<name>ShareIt</name>
-
-	<properties>
-		<java.version>21</java.version>
-	</properties>
-
-	<modules>
-		<module>gateway</module>
-		<module>server</module>
-	</modules>
 
 	<build>
 		<pluginManagement>
@@ -77,7 +74,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>3.1.2</version>
+					<version>3.6.0</version>
 					<configuration>
 						<configLocation>checkstyle.xml</configLocation>
 						<failOnViolation>true</failOnViolation>
@@ -92,6 +89,7 @@
 							<phase>compile</phase>
 						</execution>
 					</executions>
+
 				</plugin>
 				<plugin>
 					<groupId>com.github.spotbugs</groupId>

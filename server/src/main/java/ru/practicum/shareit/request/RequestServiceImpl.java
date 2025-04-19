@@ -35,12 +35,12 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public ItemRequestDto createItemRequest(long userId, ItemRequestDto requestDto) {
         User user = checkUser(userId);
-        ItemRequest requestFromDto = RequestMapper.DtoToItemRequest(requestDto, user);
+        ItemRequest requestFromDto = RequestMapper.itoToItemRequest(requestDto, user);
         ItemRequest itemRequest = requestRepository.save(requestFromDto);
         log.info("POST Запрос создан в requestRepository с id : {}", itemRequest.getId());
         List<Item> items = itemRepository.findAllByRequestId(itemRequest.getId());
         itemRequest.setItems(items);
-        return RequestMapper.ItemRequestToDto(itemRequest);
+        return RequestMapper.itemRequestToDto(itemRequest);
     }
 
     @Override
@@ -73,10 +73,10 @@ public class RequestServiceImpl implements RequestService {
         ItemRequest itemRequest = requestRepository.findById(requestId)
                 .orElseThrow(() -> new NotFoundException("Запроса с ID: " + requestId + " нет в базе"));
         List<ItemDto> itemDtos = itemRepository.findAllByRequest_IdInOrderByItemId(List.of(requestId)).stream()
-                .map(ItemMapper::ItemToDto)
+                .map(ItemMapper::itemToDto)
                 .collect(Collectors.toList());
 
-        return RequestMapper.ItemRequestToDto(itemRequest, itemDtos);
+        return RequestMapper.itemRequestToDto(itemRequest, itemDtos);
     }
 
     private List<ItemRequestDto> requestDtoList(List<ItemRequest> requests, List<Item> items) {
@@ -84,11 +84,11 @@ public class RequestServiceImpl implements RequestService {
         for (ItemRequest request : requests) {
             List<ItemDto> requestItems = new ArrayList<>();
             for (Item item : items) {
-                if (item.getRequest().getId() == request.getId()) {
-                    requestItems.add(ItemMapper.ItemToDto(item));
+                if (item.getRequest().getId().equals(request.getId())) {
+                    requestItems.add(ItemMapper.itemToDto(item));
                 }
             }
-            requestDtos.add(RequestMapper.ItemRequestToDto(request, requestItems));
+            requestDtos.add(RequestMapper.itemRequestToDto(request, requestItems));
         }
         return requestDtos;
     }

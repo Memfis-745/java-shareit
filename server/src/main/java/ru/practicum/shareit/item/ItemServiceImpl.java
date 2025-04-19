@@ -56,11 +56,11 @@ public class ItemServiceImpl implements ItemService {
                     .orElseThrow(() -> new NotFoundException("Запроса с ID " + itemDto.getRequestId()
                             + " нет в базе"));
         }
-        Item itemFromDto = ItemMapper.DtoToItem(itemDto, user, request);
+        Item itemFromDto = ItemMapper.dtoToItem(itemDto, user, request);
         Item item = itemRepository.save(itemFromDto);
         log.info("Вещь создана и уложена в itemRepository с id : {}, name: {}, owner: {}, available: {}, request: {}",
                 item.getItemId(), item.getName(), item.getOwner().getId(), item.getAvailable(), item.getRequest());
-        return ItemMapper.ItemToDto(item);
+        return ItemMapper.itemToDto(item);
     }
 
     @Transactional
@@ -73,12 +73,12 @@ public class ItemServiceImpl implements ItemService {
         Item itemOld = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException("Вещь с ID " + itemId + " не найдена"));
         if (itemOld.getOwner().getId() != userId) {
-            throw new NotFoundException("Пользователь " + user + " не является владельцем вещи c ID "
+            throw new NotFoundException("Пользователь с ID " + userId + " не является владельцем вещи c ID "
                     + itemId);
         }
-        Item item = ItemMapper.DtoToItem(itemDto, itemOld, request);
+        Item item = ItemMapper.dtoToItem(itemDto, itemOld, request);
         item.setItemId(itemId);
-        return ItemMapper.ItemToDto(itemRepository.save(item));
+        return ItemMapper.itemToDto(itemRepository.save(item));
     }
 
     @Transactional
@@ -89,7 +89,7 @@ public class ItemServiceImpl implements ItemService {
         }
 
         return itemRepository.findByNameOrDescription(text).stream()
-                .map(ItemMapper::ItemToDto)
+                .map(ItemMapper::itemToDto)
                 .collect(Collectors.toList());
     }
 
@@ -99,10 +99,10 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException("Вещь с ID " + itemId + " не найдена"));
         log.info("Вещь найдена item: {}", item);
-        return GetCommentAndBooking(List.of(item), userId).get(0);
+        return getCommentAndBooking(List.of(item), userId).get(0);
     }
 
-    private List<ItemDtoBooking> GetCommentAndBooking(List<Item> items, Long userId) {
+    List<ItemDtoBooking> getCommentAndBooking(List<Item> items, Long userId) {
 
         Map<Item, List<Comment>> comments = commentRepository.findByItemIn(
                         items, Sort.by(DESC, "created"))
@@ -118,14 +118,14 @@ public class ItemServiceImpl implements ItemService {
                 .collect(toList());
     }
 
-    private ItemDtoBooking addBookingAndComment(Item item,
-                                                Long userId,
-                                                List<Comment> comments,
-                                                List<Booking> bookings,
-                                                LocalDateTime now) {
+    ItemDtoBooking addBookingAndComment(Item item,
+                                        Long userId,
+                                        List<Comment> comments,
+                                        List<Booking> bookings,
+                                        LocalDateTime now) {
         if (item.getOwner().getId().longValue() != userId.longValue()) {
-            return ItemMapper.ItemToDtoBooking(item, null, null,
-                    CommentMapper.CommentToDtoList(comments));
+            return ItemMapper.itemToDtoBooking(item, null, null,
+                    CommentMapper.commentToDtoList(comments));
         }
 
         Booking lastBooking = bookings.stream()
@@ -144,15 +144,15 @@ public class ItemServiceImpl implements ItemService {
         BookingDtoItem nextBookingDto = nextBooking != null ?
                 BookingMapper.bookingToDtoItem(nextBooking) : null;
 
-        return ItemMapper.ItemToDtoBooking(item, lastBookingDto, nextBookingDto,
-                CommentMapper.CommentToDtoList(comments));
+        return ItemMapper.itemToDtoBooking(item, lastBookingDto, nextBookingDto,
+                CommentMapper.commentToDtoList(comments));
     }
 
     @Override
     public List<ItemDtoBooking> getUserItems(long userId, int from, int size) {
         checkUser(userId);
         Pageable pageable = PageRequest.of(from, size, Sort.unsorted());
-        return GetCommentAndBooking(itemRepository.findAllByOwnerIdOrderByItemId(userId, pageable).getContent(), userId);
+        return getCommentAndBooking(itemRepository.findAllByOwnerIdOrderByItemId(userId, pageable).getContent(), userId);
     }
 
     @Transactional
@@ -168,9 +168,9 @@ public class ItemServiceImpl implements ItemService {
             throw new EntityNotFoundException("Пользователь " + userId + " не арендовывал вещь " + itemId +
                     " и не может писать отзыв");
         }
-        Comment comment = CommentMapper.DtoToComment(commentDto, item, user);
+        Comment comment = CommentMapper.dtoToComment(commentDto, item, user);
 
-        return CommentMapper.CommentToDto(commentRepository.save(comment));
+        return CommentMapper.commentToDto(commentRepository.save(comment));
     }
 
     public User checkUser(Long userId) {
@@ -188,6 +188,7 @@ public class ItemServiceImpl implements ItemService {
                 new NotFoundException("Вещь с id " +
                         itemId + " не найдена"));
     }
+
 
 }
 
